@@ -29,7 +29,7 @@ hashed_passwords = [user["password"] for user in users]
 authenticator = stauth.Authenticate(names, usernames, hashed_passwords, "sales_dashboard", "abcdef",
                                     cookie_expiry_days=1)
 
-name, authentication_status, username = authenticator.login("Login", "main")
+name, authentication_status, username = st.sidebar.authenticator.login("Login", "main")
 
 if not authentication_status:
     st.error("Benutzername/Password ist falsch.")
@@ -43,8 +43,6 @@ if authentication_status:
     authenticator.logout("Logout", "sidebar")
     # Interaktionsfeld zum Hochladen der Dateien
     uploaded_files = st.sidebar.file_uploader("Wähle Excel-Dateien aus", accept_multiple_files=True, type='xls')
-    with st.spinner('Wait for it...'):
-        time.sleep(2)
     # Auswahl Liste für das Drop-Down-Menü
     list_keys = ['Keine Datei']
 
