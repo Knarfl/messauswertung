@@ -1,8 +1,4 @@
-import os.path
-import pathlib
-
 import streamlit as st
-
 from st_pages import show_pages_from_config
 
 hide_st_style ="""
