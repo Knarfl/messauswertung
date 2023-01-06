@@ -1,0 +1,11 @@
+deta==1.1.0
+openpyxl==3.0.10
+pandas==1.5.2
+xlrd<2.0.2
+plotly==5.11.0
+python-dotenv==0.21.0
+st_pages==0.3.1
+streamlit==1.16.0
+streamlit_authenticator==0.1.5
+streamlit_extras==0.2.4
+streamlit_option_menu==0.3.2

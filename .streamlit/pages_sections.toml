@@ -1,0 +1,9 @@
+[[pages]]
+path = "app.py"
+name = "Home"
+icon = ":house:"
+
+[[pages]]
+path = "pages/01_Panoramamessung.py"
+name = "Panoramamessung"
+icon = ":clipboard:"
