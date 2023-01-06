@@ -21,7 +21,7 @@ def upload(uploaded_files):
         list_data.append(df.dropna(subset=["Network Provider"]))
 
     dict_data = dict(zip(list_keys, list_data))
-
+    print(list_keys)
     return list_data, dict_data
 
 
