@@ -43,6 +43,8 @@ if authentication_status:
     authenticator.logout("Logout", "sidebar")
     # Interaktionsfeld zum Hochladen der Dateien
     uploaded_files = st.sidebar.file_uploader("Wähle Excel-Dateien aus", accept_multiple_files=True, type='xls')
+    with st.spinner('Wait for it...'):
+        time.sleep(2)
     # Auswahl Liste für das Drop-Down-Menü
     list_keys = ['Keine Datei']
 
@@ -66,6 +68,9 @@ if authentication_status:
         # Erstellung einer Liste und ein Dictionary mit allen hochgeladenen Dateien
         list_data, dict_data = upload(uploaded_files)
         list_keys = list(dict_data.keys())
+        print(list_keys)
+        print(list_data)
+        print(dict_data)
 
         if len_uploaded_files > 0:
             type_filter = st.sidebar.selectbox("Filtertyp wählen",

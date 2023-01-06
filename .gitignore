@@ -123,7 +123,7 @@ celerybeat.pid
 # SageMath parsed files
 *.sage.py
 
-.streamlit/secrets.toml
+secrets.toml
 upload_to_database.py
 upload_to_drive.py
 
