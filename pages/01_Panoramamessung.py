@@ -26,10 +26,10 @@ usernames = [user["key"] for user in users]
 names = [user["name"] for user in users]
 hashed_passwords = [user["password"] for user in users]
 
-authenticator = stauth.Authenticate(names, usernames, hashed_passwords, "sales_dashboard", "abcdef",
+authenticator = st.sidebar.stauth.Authenticate(names, usernames, hashed_passwords, "sales_dashboard", "abcdef",
                                     cookie_expiry_days=1)
 
-name, authentication_status, username = st.sidebar.authenticator.login("Login", "main")
+name, authentication_status, username = authenticator.login("Login", "main")
 
 if not authentication_status:
     st.error("Benutzername/Password ist falsch.")
