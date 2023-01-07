@@ -10,7 +10,6 @@ from openpyxl.writer.excel import save_virtual_workbook
 from openpyxl.utils.dataframe import dataframe_to_rows
 
 
-@st.cache()
 def upload(uploaded_files):
     list_data = list()
     list_keys = list()
