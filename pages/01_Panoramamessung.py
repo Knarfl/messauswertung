@@ -7,7 +7,7 @@ import pandas as pd
 
 import database as db
 
-from functions import find_all_lac, upload, create_dataframe, fill_dataframe, show_polar_chart, create_xlsx
+from functions import find_all_lac, upload, create_dataframe, fill_dataframe, show_polar_chart, create_xlsx, upload_files, create_fin_dataframe
 from drive import init_drive, create_drive, get_data
 
 hide_st_style = """
@@ -64,19 +64,20 @@ if authentication_status:
         if 24 > len_uploaded_files > 0:
             st.sidebar.warning("Es wurden zu wenig Daten eingelesen")
         # Erstellung einer Liste und ein Dictionary mit allen hochgeladenen Dateien
-        list_data, dict_data = upload(uploaded_files)
-        list_keys = list(dict_data.keys())
-        print(list_keys)
-        print(list_data)
-        print(dict_data)
+        dict_data = upload_files(uploaded_files)
+        #list_keys = list(dict_data.keys())
+        #print(list_keys)
+        #print(list_data)
+        #print(dict_data)
 
         if len_uploaded_files > 0:
             type_filter = st.sidebar.selectbox("Filtertyp wählen",
                                                ["TETRA Power Median Average", "TETRA Power Median Max"])
 
-            list_lac, dict_lac = find_all_lac(list_data)
-            df_main = create_dataframe(list_lac)
-            df_result = fill_dataframe(df_main, list_data, type_filter=type_filter, replace_nan=-115)
+            #list_lac, dict_lac = find_all_lac(list_data)
+            #df_main = create_dataframe(list_lac)
+            #df_result = fill_dataframe(df_main, list_data, type_filter=type_filter, replace_nan=-115)
+            df_result, dict_lac = create_fin_dataframe(dict_data, type_filter, -115)
 
             options = df_result.columns.values.tolist()
 

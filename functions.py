@@ -76,13 +76,58 @@ def fill_dataframe(df, list_data, type_filter, replace_nan):
 
             else:
                 dict_temp[element] = \
-                dataframe.loc[dataframe["TETRA LA or DMO Source Address"] == element, type_filter].values[0]
+                    dataframe.loc[dataframe["TETRA LA or DMO Source Address"] == element, type_filter].values[0]
 
         new_df = pd.DataFrame(dict_temp, index=[i])
         df.update(new_df)
         i = i + (360 / len(list_data))
 
     return df.fillna(replace_nan)
+
+
+def create_fin_dataframe(dict_data, type_filter, replace_nan):
+    # type_filter = "TETRA Power Median Average"  # "TETRA Power Median Max"
+    list_angle = list(dict_data.keys())
+    dict_table = dict.fromkeys(list_angle, dict())
+    list_all_lac = list()
+    list_all_car = list()
+
+    for key in list_angle:
+        list_lac = dict_data[key]["TETRA LA or DMO Source Address"].to_list()
+        list_power = dict_data[key][type_filter].to_list()
+        list_car = dict_data[key]["Main Carrier"].to_list()
+
+        list_all_lac.extend(list_lac)
+        list_all_lac = [x for x in list_all_lac if pd.isnull(x) == False]
+        list_all_car.extend(list_car)
+        list_all_car = [x for x in list_all_car if pd.isnull(x) == False]
+
+        dict_table[key] = dict(zip(list_lac, list_power))
+
+    dic_lac = dict(zip(list_all_lac, list_all_car))
+
+    df_data = pd.DataFrame.from_dict(dict_table, orient='index')
+    df_data = df_data.dropna(axis=1, how='all')
+    df_data = df_data.fillna(replace_nan)
+
+    return df_data, dic_lac
+
+
+@st.cache()
+def upload_files(uploaded_files):
+    dict_data = dict()
+
+    for file in uploaded_files:
+        keys, extension = os.path.splitext(file)
+        separator = "_"
+        list_name = keys.split(separator)
+        angle = int(list_name[-1])
+
+        if extension == ".xls" or extension == ".xlsx":
+            df = pd.read_excel(file, skiprows=4, usecols='A:X', nrows=8)
+            dict_data.update({angle: df})
+
+    return dict_data
 
 
 def show_polar_chart(df):
