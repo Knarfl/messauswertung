@@ -141,7 +141,7 @@ if authentication_status:
                 st.info("Es wurden keine Daten eingelesen")
                 st.sidebar.write(":blue[Der Dateiname der Excel-Datei muss mit \"_Winkel\" enden. Somit wird "
                                  "sichergestellt, dass die Daten zu jeder Zeit dem jeweiligen Winkel zugeordnet "
-                                 "werden können.\\Beispiel: LHN-Westportal_330]")
+                                 "werden können.\n Beispiel: LHN-Westportal_330]")
 
         if selected == "Diagramme":
             if len_uploaded_files > 0:
