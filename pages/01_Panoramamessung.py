@@ -65,7 +65,7 @@ if authentication_status:
             st.sidebar.warning("Es wurden zu wenig Daten eingelesen")
         # Erstellung einer Liste und ein Dictionary mit allen hochgeladenen Dateien
         dict_data = upload_files(uploaded_files)
-        #list_keys = list(dict_data.keys())
+        list_keys = list(dict_data.keys())
         #print(list_keys)
         #print(list_data)
         #print(dict_data)
