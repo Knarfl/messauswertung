@@ -66,9 +66,6 @@ if authentication_status:
         # Erstellung einer Liste und ein Dictionary mit allen hochgeladenen Dateien
         dict_data = upload_files(uploaded_files)
         list_keys = list(dict_data.keys())
-        #print(list_keys)
-        #print(list_data)
-        #print(dict_data)
 
         if len_uploaded_files > 0:
             type_filter = st.sidebar.selectbox("Filtertyp wählen",
@@ -142,9 +139,9 @@ if authentication_status:
 
             else:
                 st.info("Es wurden keine Daten eingelesen")
-                st.sidebar.write(":blue[Die Excel-Daten müssen nach dem entsprechenden Winkel benannt sein.]")
-                st.sidebar.write(":blue[Eine unzulässige Anzahl der eingelesenen Daten kann zu einer fehlerhaften"
-                                 "Auswertung führen. Es werden 24 Datensätze erwartet.]")
+                st.sidebar.write(":blue[Der Dateiname der Excel-Datei muss mit \"_Winkel\" enden. Somit wird "
+                                 "sichergestellt, dass die Daten zu jeder Zeit dem jeweiligen Winkel zugeordnet "
+                                 "werden können.")
 
         if selected == "Diagramme":
             if len_uploaded_files > 0:
