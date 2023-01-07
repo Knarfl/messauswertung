@@ -118,7 +118,7 @@ def upload_files(uploaded_files):
     dict_data = dict()
 
     for file in uploaded_files:
-        keys, extension = os.path.splitext(file)
+        keys, extension = os.path.splitext(file.name)
         separator = "_"
         list_name = keys.split(separator)
         angle = int(list_name[-1])
