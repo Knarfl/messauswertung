@@ -7,8 +7,8 @@ import pandas as pd
 
 import database as db
 
-from functions import find_all_lac, upload, create_dataframe, fill_dataframe, show_polar_chart, create_xlsx, upload_files, create_fin_dataframe
-from drive import init_drive, create_drive, get_data
+from functions import show_polar_chart, create_xlsx, upload_files, create_fin_dataframe
+from drive import get_data
 
 hide_st_style = """
 <style>
