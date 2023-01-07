@@ -109,6 +109,7 @@ def create_fin_dataframe(dict_data, type_filter, replace_nan):
     df_data = pd.DataFrame.from_dict(dict_table, orient='index')
     df_data = df_data.dropna(axis=1, how='all')
     df_data = df_data.fillna(replace_nan)
+    df_data = df_data.sort_index()
 
     return df_data, dic_lac
 
