@@ -142,7 +142,7 @@ if authentication_status:
                 st.sidebar.write(":blue[Der Dateiname der Excel-Datei muss mit \"_Winkel\" enden. Somit wird "
                                  "sichergestellt, dass die Daten zu jeder Zeit dem jeweiligen Winkel zugeordnet "
                                  "werden können.]")
-                st.sidebar.write(":blue[Beispiel: LHN-Westportal_330]")
+                st.sidebar.write(":blue[Beispiel: LHN-Westportal_330.xls]")
 
         if selected == "Diagramme":
             if len_uploaded_files > 0:
