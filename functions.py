@@ -3,12 +3,14 @@ import os
 import plotly.express as px
 import openpyxl
 import drive as dv
+import streamlit as st
 
 from io import BytesIO
 from openpyxl.writer.excel import save_virtual_workbook
 from openpyxl.utils.dataframe import dataframe_to_rows
 
 
+@st.cache()
 def upload(uploaded_files):
     list_data = list()
     list_keys = list()
@@ -26,7 +28,6 @@ def upload(uploaded_files):
 
 
 def find_all_lac(list_data):
-
     list_lac = []
     list_car = []
 
@@ -75,11 +76,12 @@ def fill_dataframe(df, list_data, type_filter, replace_nan):
                 dict_temp[element] = max_value
 
             else:
-                dict_temp[element] = dataframe.loc[dataframe["TETRA LA or DMO Source Address"] == element, type_filter].values[0]
+                dict_temp[element] = \
+                dataframe.loc[dataframe["TETRA LA or DMO Source Address"] == element, type_filter].values[0]
 
         new_df = pd.DataFrame(dict_temp, index=[i])
         df.update(new_df)
-        i = i + (360/len(list_data))
+        i = i + (360 / len(list_data))
 
     return df.fillna(replace_nan)
 
@@ -129,7 +131,7 @@ def create_xlsx(filename, dict_form, df, dict_lac, filename_tetra):
     rows = dataframe_to_rows(df, index=False, header=True)
     for r_idx, row in enumerate(rows, 1):
         for c_idx, value in enumerate(row, 1):
-            ws.cell(row=r_idx+32, column=c_idx+2, value=value)
+            ws.cell(row=r_idx + 32, column=c_idx + 2, value=value)
 
     ####
     file = dv.get_file(filename_tetra)
@@ -138,7 +140,8 @@ def create_xlsx(filename, dict_form, df, dict_lac, filename_tetra):
         for chunk in file.iter_chunks(4096):
             f.write(chunk)
 
-    df_tetra = pd.read_excel("TETRA BOS Frequenztabelle.xlsx", sheet_name="Daten", usecols=["Kanalnr.", "Carrier", "Frequenz \nDownlink"])
+    df_tetra = pd.read_excel("TETRA BOS Frequenztabelle.xlsx", sheet_name="Daten",
+                             usecols=["Kanalnr.", "Carrier", "Frequenz \nDownlink"])
     df_tetra.columns = ['Kanal', 'Carrier', 'Frequenz']
 
     list_car = []
@@ -148,9 +151,9 @@ def create_xlsx(filename, dict_form, df, dict_lac, filename_tetra):
 
     x = 0
     for element in list_car:
-        ws.cell(row=31, column=x+3).value = element
-        ws.cell(row=32, column=x+3).value = df_tetra.loc[df_tetra.Carrier == element, 'Frequenz'].values[0]
-        x = x+1
+        ws.cell(row=31, column=x + 3).value = element
+        ws.cell(row=32, column=x + 3).value = df_tetra.loc[df_tetra.Carrier == element, 'Frequenz'].values[0]
+        x = x + 1
 
     ######
     list_head = list(df.columns.values)
@@ -168,7 +171,7 @@ def create_xlsx(filename, dict_form, df, dict_lac, filename_tetra):
 
         processed_data = BytesIO(save_virtual_workbook(wb))
     else:
-        diff = len_head-15
+        diff = len_head - 15
         processed_data = diff
 
     return processed_data
