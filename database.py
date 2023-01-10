@@ -1,6 +1,7 @@
 import os
 
 import streamlit
+import streamlit_authenticator as stauth
 from deta import Deta  # pip install deta
 from dotenv import load_dotenv  # pip install python-dotenv
 
@@ -36,9 +37,12 @@ def get_user(username):
 def update_user(username, updates):
     """If the item is updated, returns None. Otherwise, an exception is raised"""
     return db.update(updates, username)
-
-
 # update_user("knarfl", updates={"name": "Neuer Name"})
+
+
+def update_pwd(username, new_pwd):
+    hashed_pwd = stauth.Hasher(new_pwd).generate()
+    return db.update(username, {"password": hashed_pwd})
 
 
 def delete_user(username):
