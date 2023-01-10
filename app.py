@@ -19,9 +19,9 @@ def main():
 
     st.markdown(hide_st_style, unsafe_allow_html=True)
 
-    st.title("Auswertung der Panoramamessung")
-    st.subheader("Main Page")
-    st.write("Geht es jetzt?")
+    st.title("Messauswertungen")
+    #st.subheader("Main Page")
+    #st.write("Geht es jetzt?")
 
 
 if __name__ == '__main__':
