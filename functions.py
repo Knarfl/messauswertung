@@ -168,10 +168,10 @@ def create_xlsx(filename, dict_form, df, dict_lac, filename_tetra):
     ws.oddFooter.left.text = f"Name des Verantwortlichen: {creator}\n Datum und Uhrzeit: {date}"
     ws.oddFooter.right.text = f"{project}\n Koordinaten in WGS84: {coordinates}"
 
-    ws.cell(row=8, column=3).value = h_nn
-    ws.cell(row=9, column=3).value = h_a
-    ws.cell(row=10, column=3).value = gain_a
-    ws.cell(row=11, column=3).value = attenuation
+    ws.cell(row=24, column=3).value = h_nn
+    ws.cell(row=25, column=3).value = h_a
+    ws.cell(row=24, column=8).value = gain_a
+    ws.cell(row=25, column=8).value = attenuation
 
     rows = dataframe_to_rows(df, index=False, header=True)
     for r_idx, row in enumerate(rows, 1):
@@ -210,9 +210,9 @@ def create_xlsx(filename, dict_form, df, dict_lac, filename_tetra):
             indexes = index.get_indexer(df.loc[df[list_head[x]] == val_max].index)
             list_index = df.head(24).index.tolist()
             print(list_index)
-            ws.cell(row=x + 9, column=13).value = list_head[x]
-            ws.cell(row=x + 9, column=14).value = list_index[indexes[0]]
-            ws.cell(row=x + 9, column=15).value = df[list_head[x]].max()
+            ws.cell(row=15, column=x+3).value = list_head[x]  # LAC
+            ws.cell(row=16, column=x+3).value = list_index[indexes[0]]    # angle
+            ws.cell(row=17, column=x+3).value = df[list_head[x]].max()    # max power of LAC
 
         processed_data = BytesIO(save_virtual_workbook(wb))
     else:
