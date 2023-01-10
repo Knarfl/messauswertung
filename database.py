@@ -42,7 +42,7 @@ def update_user(username, updates):
 
 def update_pwd(username, new_pwd):
     hashed_pwd = stauth.Hasher(new_pwd).generate()
-    return db.update(username, updates={"password": hashed_pwd})
+    return db.update({"password": hashed_pwd}, username)
 
 
 def delete_user(username):
