@@ -78,7 +78,7 @@ if authentication_status:
             # create formatted dataframe of alle files and content
             df_result, dict_lac = create_fin_dataframe(dict_data, type_filter, -115)
             # create a list from dataframe columns to get option for multi select field to delete columns
-            options = df_result.columns.values.tolist()
+            options = df_result.columns.values.tolist().sort()
             # multi select field
             option = st.sidebar.multiselect(
                 'Nicht benötigte LAC entfernen',
