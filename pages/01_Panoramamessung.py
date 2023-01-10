@@ -31,7 +31,7 @@ authenticator = stauth.Authenticate(names, usernames, hashed_passwords, "sales_d
 
 name, authentication_status, username = authenticator.login("Login", "main")
 
-if not authentication_status:
+if authentication_status == False:
     st.error("Benutzername/Password ist falsch.")
 
 if authentication_status is None:
