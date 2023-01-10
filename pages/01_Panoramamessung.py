@@ -40,8 +40,12 @@ if authentication_status is None:
     st.warning("Gib dein Benutzername und Password ein")
 
 if authentication_status:
-    st.sidebar.write(f"Herzlich Willkommen {name}")     # shows logged user
-    authenticator.logout("Logout", "sidebar")           # Logout Button
+    left, right = st.columns(2)
+    with left:
+        st.sidebar.write(f"Herzlich Willkommen {name}")     # shows logged user
+    with right:
+        authenticator.logout("Logout", "sidebar")           # Logout Button
+
     # file uploader field
     uploaded_files = st.sidebar.file_uploader("Wähle Excel-Dateien aus", accept_multiple_files=True, type='xls')
     # list of drop-down-menu
