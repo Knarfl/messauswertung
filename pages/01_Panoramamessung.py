@@ -68,7 +68,7 @@ if authentication_status:
             st.sidebar.warning("Es wurden zu wenig Daten eingelesen")
 
         dict_data = upload_files(uploaded_files)    # dictionary of all files and content
-        list_keys = list(dict_data.keys())          # list of all angles of files
+        list_keys = list(dict_data.keys()).sort()       # list of all angles of files
 
         if len_uploaded_files > 0:
             #  select box of filter for power selection
@@ -78,7 +78,7 @@ if authentication_status:
             # create formatted dataframe of alle files and content
             df_result, dict_lac = create_fin_dataframe(dict_data, type_filter, -115)
             # create a list from dataframe columns to get option for multi select field to delete columns
-            options = df_result.columns.values.tolist().sort()
+            options = df_result.columns.values.tolist()
             # multi select field
             option = st.sidebar.multiselect(
                 'Nicht benötigte LAC entfernen',
