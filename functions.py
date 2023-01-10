@@ -210,9 +210,9 @@ def create_xlsx(filename, dict_form, df, dict_lac, filename_tetra):
             indexes = index.get_indexer(df.loc[df[list_head[x]] == val_max].index)
             list_index = df.head(24).index.tolist()
             print(list_index)
-            ws.cell(row=15, column=x+3).value = list_head[x]  # LAC
-            ws.cell(row=16, column=x+3).value = list_index[indexes[0]]    # angle
-            ws.cell(row=17, column=x+3).value = df[list_head[x]].max()    # max power of LAC
+            ws.cell(row=16, column=x+3).value = list_head[x]  # LAC
+            ws.cell(row=17, column=x+3).value = list_index[indexes[0]]    # angle
+            ws.cell(row=18, column=x+3).value = df[list_head[x]].max()    # max power of LAC
 
         processed_data = BytesIO(save_virtual_workbook(wb))
     else:
