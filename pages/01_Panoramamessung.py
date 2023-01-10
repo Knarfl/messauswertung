@@ -10,6 +10,7 @@ import database as db
 from functions import show_polar_chart, create_xlsx, upload_files, create_fin_dataframe
 from drive import get_data
 
+# hide all streamlit menus
 hide_st_style = """
 <style>
 #MainMenu {visibility: hidden;}
@@ -18,6 +19,7 @@ header {visibility: hidden;}
 </style>
 """
 
+# Applying defined style
 st.markdown(hide_st_style, unsafe_allow_html=True)
 
 # --- USER AUTHENTICATION ---
@@ -38,67 +40,59 @@ if authentication_status is None:
     st.warning("Gib dein Benutzername und Password ein")
 
 if authentication_status:
-    # Ausgabe des eingeloggten Nutzers
-    st.sidebar.write(f"Herzlich Willkommen {name}")
-    authenticator.logout("Logout", "sidebar")
-    # Interaktionsfeld zum Hochladen der Dateien
+    st.sidebar.write(f"Herzlich Willkommen {name}")     # shows logged user
+    authenticator.logout("Logout", "sidebar")           # Logout Button
+    # file uploader field
     uploaded_files = st.sidebar.file_uploader("Wähle Excel-Dateien aus", accept_multiple_files=True, type='xls')
-    # Auswahl Liste für das Drop-Down-Menü
+    # list of drop-down-menu
     list_keys = ['Keine Datei']
 
     if uploaded_files is not None:
+        # create menubar
         selected = option_menu(
             menu_title=None,
             options=["Daten", "Diagramme", "Export"],
             icons=["table", "bar-chart-line-fill", "download"],
             menu_icon="cast",
-            default_index=0,
+            default_index=0,    # selected Option of list
             orientation="horizontal"
         )
 
-        # Bestimmung der Anzahl der hochgeladenen Dateien
+        # calculate number of uploaded files
         len_uploaded_files = len(uploaded_files)
-        # Ausgabe der hochgeladenen Dateien
+        # shows uploaded files
         st.sidebar.write(f"Es wurden {len_uploaded_files}/24 nötigen Dateien eingelesen.")
-        # Ausgabe der Warnung, falls zu wenig Dateien hochgeladen wurden
+        # warning because of too less files
         if 24 > len_uploaded_files > 0:
             st.sidebar.warning("Es wurden zu wenig Daten eingelesen")
-        # Erstellung einer Liste und ein Dictionary mit allen hochgeladenen Dateien
-        dict_data = upload_files(uploaded_files)
-        list_keys = list(dict_data.keys())
+
+        dict_data = upload_files(uploaded_files)    # dictionary of all files and content
+        list_keys = list(dict_data.keys())          # list of all angles of files
 
         if len_uploaded_files > 0:
+            #  select box of filter for power selection
             type_filter = st.sidebar.selectbox("Filtertyp wählen",
                                                ["TETRA Power Median Average", "TETRA Power Median Max"])
 
-            #list_lac, dict_lac = find_all_lac(list_data)
-            #df_main = create_dataframe(list_lac)
-            #df_result = fill_dataframe(df_main, list_data, type_filter=type_filter, replace_nan=-115)
+            # create formatted dataframe of alle files and content
             df_result, dict_lac = create_fin_dataframe(dict_data, type_filter, -115)
-
+            # create a list from dataframe columns to get option for multi select field to delete columns
             options = df_result.columns.values.tolist()
-
+            # multi select field
             option = st.sidebar.multiselect(
                 'Nicht benötigte LAC entfernen',
                 options)
-
+            # create new dataframe without selected options in multiselect
             df_result = df_result.drop(option, axis=1)
 
-            # Daten aus Cloud holen
-            #name_key = "DETA_DRIVE"
-            #deta = init_drive(name_key)
-
-            #name_drive = "data_pano"
-            #data_drive = create_drive(deta, name_drive)
-
+            # get data from config file and create a dictionary
             dic_category = get_data("config.json")
 
+            #def highlight_max(s):
+            #    is_max = s == s.max()
+            #    return ["color: #000000" if v else "" for v in is_max]
 
-            def highlight_max(s):
-                is_max = s == s.max()
-                return ["color: #000000" if v else "" for v in is_max]
-
-
+            # definition of color mapping with coloration from dictionary of config
             def color_mapping(val):
                 if val >= -85:
                     color = dic_category['category']['best']['color']
@@ -121,7 +115,7 @@ if authentication_status:
 
                 return f'background-color: {color}; color: {text}'
 
-        if selected == "Daten":
+        if selected == "Daten":     # menubar second section
 
             if len_uploaded_files > 0:
                 # Erstelle ein Dropdown-Menü mit den Schlüsseln des Dictionarys als Optionen
