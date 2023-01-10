@@ -181,7 +181,7 @@ if authentication_status:
                     submitted = st.form_submit_button("Bestätigen")
 
                 if submitted:
-                    with st.spinner('Wait for it...'):
+                    with st.spinner('Die Excel-Datei wird erstellt.'):
                         wb = create_xlsx("Panoramamessung_template.xlsx", dict_form, df_result, dict_lac, 'TETRA BOS Frequenztabelle.xlsx')
                     if isinstance(wb, int):
                         st.error("Es sind mehr als 15 LAC in der Tabelle. Es können maximal 15 LAC dargestellt werden.")
