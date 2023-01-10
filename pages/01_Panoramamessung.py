@@ -41,10 +41,10 @@ if authentication_status is None:
 
 if authentication_status:
     st.sidebar.write(f"Herzlich Willkommen {name}")     # shows logged user
-    #pwd = st.sidebar.text_input("Passwort ändern", "neues Password")
+    pwd = st.sidebar.text_input("Passwort ändern", "neues Password")
 
-    #if st.sidebar.button('Bestätigen'):
-    #    db.update_pwd(username, pwd)
+    if st.sidebar.button('Bestätigen'):
+        db.update_pwd(username, pwd)
 
     authenticator.logout("Logout", "sidebar")           # Logout Button
     # file uploader field
