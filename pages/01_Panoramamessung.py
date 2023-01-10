@@ -68,7 +68,7 @@ if authentication_status:
             st.sidebar.warning("Es wurden zu wenig Daten eingelesen")
 
         dict_data = upload_files(uploaded_files)    # dictionary of all files and content
-        list_keys = list(dict_data.keys()).sort()       # list of all angles of files
+        list_keys = list(dict_data.keys())       # list of all angles of files
 
         if len_uploaded_files > 0:
             #  select box of filter for power selection
