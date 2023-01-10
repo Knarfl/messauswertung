@@ -188,6 +188,7 @@ if authentication_status:
                     else:
                         st.success("Die Excel-Datei kann jetzt heruntergeladen werden.")
                         st.download_button('Download xlsx', data=wb, file_name='Panoramamessung.xlsx')
+                        st.balloons()
 
             else:
                 st.info("Es wurden keine Daten eingelesen")
