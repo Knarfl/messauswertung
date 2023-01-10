@@ -41,8 +41,11 @@ if authentication_status is None:
 
 if authentication_status:
     st.sidebar.write(f"Herzlich Willkommen {name}")     # shows logged user
-    pwd = st.sidebar.text_input()
-    db.update_pwd(username, pwd)
+    pwd = st.sidebar.text_input("Passwort ändern", "neues Password")
+
+    if st.button('Bestätigen'):
+        db.update_pwd(username, pwd)
+
     authenticator.logout("Logout", "sidebar")           # Logout Button
     # file uploader field
     uploaded_files = st.sidebar.file_uploader("Wähle Excel-Dateien aus", accept_multiple_files=True, type='xls')
