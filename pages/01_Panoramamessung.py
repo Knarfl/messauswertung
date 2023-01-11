@@ -4,6 +4,7 @@ import time
 from streamlit_extras.dataframe_explorer import dataframe_explorer
 from streamlit_option_menu import option_menu
 import pandas as pd
+from PIL import Image
 
 import database as db
 import drive
@@ -188,6 +189,7 @@ if authentication_status:
                         st.balloons()
 
                 template_img = drive.get_file('Exportvorlage.png')
+                template_img = Image.open(template_img)
                 st.image(template_img, caption='Vorlage')
 
             else:
