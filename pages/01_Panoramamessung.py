@@ -190,7 +190,7 @@ if authentication_status:
 
                 template_img = drive.get_file('Exportvorlage.png')
                 template_img = Image.open(template_img)
-                st.image(template_img, width=250)
+                st.image(template_img, width=750)
 
             else:
                 st.info("Es wurden keine Daten eingelesen")
