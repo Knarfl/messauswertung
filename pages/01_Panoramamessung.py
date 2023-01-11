@@ -171,9 +171,6 @@ if authentication_status:
                         gain_a = st.number_input("Antennengewinn [dBi]", 12.0)
                         attenuation = st.number_input("Kabeldämpfung [dB]", 2.0)
 
-                    template_img = drive.get_file('Exportvorlage.png')
-                    st.image(template_img, 'Vorlage')
-
                     list_values_form = [creator, company, date, project, coordinates, h_nn, h_a, gain_a, attenuation]
                     dict_form = dict(zip(list_form, list_values_form))
 
@@ -189,6 +186,9 @@ if authentication_status:
                         st.success("Die Excel-Datei kann jetzt heruntergeladen werden.")
                         st.download_button('Download xlsx', data=wb, file_name='Panoramamessung.xlsx')
                         st.balloons()
+
+                template_img = drive.get_file('Exportvorlage.png')
+                st.image(template_img, caption='Vorlage')
 
             else:
                 st.info("Es wurden keine Daten eingelesen")
