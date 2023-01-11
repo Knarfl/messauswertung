@@ -6,6 +6,7 @@ from streamlit_option_menu import option_menu
 import pandas as pd
 
 import database as db
+import drive
 
 from functions import show_polar_chart, create_xlsx, upload_files, create_fin_dataframe
 from drive import get_data
@@ -169,6 +170,9 @@ if authentication_status:
                         h_a = st.number_input("Antennenhöhe [m]")
                         gain_a = st.number_input("Antennengewinn [dBi]", 12.0)
                         attenuation = st.number_input("Kabeldämpfung [dB]", 2.0)
+
+                    template_img = drive.get_file('Exportvorlage.png')
+                    st.image(template_img, 'Vorlage')
 
                     list_values_form = [creator, company, date, project, coordinates, h_nn, h_a, gain_a, attenuation]
                     dict_form = dict(zip(list_form, list_values_form))
